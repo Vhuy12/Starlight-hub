@@ -1,0 +1,116 @@
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+local Mouse = Player:GetMouse()
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+-- Tạo GUI Frame AutoParry
+local ScreenGui = Instance.new("ScreenGui", Player:WaitForChild("PlayerGui"))
+local frame = Instance.new("Frame", ScreenGui)
+frame.Name = "AutoParry"
+frame.Size = UDim2.new(0, 150, 0, 50)
+frame.Position = UDim2.new(0.5, -75, 0.1, 0)
+frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+
+local textLabel = Instance.new("TextLabel", frame)
+textLabel.Size = UDim2.new(1,0,1,0)
+textLabel.BackgroundTransparency = 1
+textLabel.Text = "Auto Parry: ON"
+textLabel.TextColor3 = Color3.new(1,1,1)
+textLabel.Font = Enum.Font.SourceSansBold
+textLabel.TextSize = 20
+
+-- Cấu hình
+getgenv().Paws = {
+    AutoParry = true,
+    PingBased = true,
+    PingBasedOffset = 0,
+    DistanceToParry = 0.5,
+    BallSpeedCheck = true,
+}
+
+-- Bật tắt auto parry khi click frame
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        getgenv().Paws.AutoParry = not getgenv().Paws.AutoParry
+        textLabel.Text = "Auto Parry: " .. (getgenv().Paws.AutoParry and "ON" or "OFF")
+    end
+end)
+
+-- Tìm bóng thật
+local function FindBall()
+    local ballsFolder = workspace:FindFirstChild("Balls")
+    if not ballsFolder then return nil end
+    for _, ball in pairs(ballsFolder:GetChildren()) do
+        if ball:GetAttribute("realBall") == true then
+            return ball
+        end
+    end
+    return nil
+end
+
+-- Kiểm tra có target (Highlight) không
+local function IsTheTarget()
+    return Player.Character and Player.Character:FindFirstChild("Highlight") ~= nil
+end
+
+-- Auto Parry logic
+RunService.RenderStepped:Connect(function()
+    if not getgenv().Paws.AutoParry then return end
+
+    local ball = FindBall()
+    if not ball then return end
+    local char = Player.Character
+    if not char then return end
+    local rootPart = char:FindFirstChild("HumanoidRootPart")
+    if not rootPart then return end
+
+    local dist = (ball.Position - rootPart.Position).Magnitude
+    local ballVel = ball.AssemblyLinearVelocity.Magnitude
+
+    if getgenv().Paws.PingBased then
+        local ping = game.Stats.Network.ServerStatsItem["Data Ping"]:GetValue() / 1000
+        dist = dist - (ballVel * ping + getgenv().Paws.PingBasedOffset)
+    end
+
+    if getgenv().Paws.BallSpeedCheck and ballVel == 0 then return end
+
+    if (dist / ballVel) <= getgenv().Paws.DistanceToParry and IsTheTarget() then
+        ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("ParryButtonPress"):Fire()
+    end
+end)
+
+-- Kéo thả frame
+local dragging, dragInput, dragStart, startPos
+local function update(input)
+    local delta = input.Position - dragStart
+    frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+                               startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = frame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+frame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
