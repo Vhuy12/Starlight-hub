@@ -1,0 +1,16 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "VampireHub",
+   LoadingTitle = "Loading",
+   LoadingSubtitle = "by Kurayami",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = "Vamiprehub",
+      FileName = "Vampire_UI"
+   },
+   Discord = {
+      Enabled = false
+   },
+   KeySystem = false
+})
