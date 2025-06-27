@@ -6,11 +6,22 @@ local Window = Rayfield:CreateWindow({
    LoadingSubtitle = "by Kurayami",
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = "Vamiprehub",
+      FolderName = "VampireHub",
       FileName = "Vampire_UI"
    },
    Discord = {
-      Enabled = false
+      Enabled = true,
+      Invite = "xqbpKmSs",
+      RememberJoins = true
    },
-   KeySystem = false
+   KeySystem = true,
+   KeySettings = {
+      Title = "VampireHub - Key System",
+      Subtitle = "Sumbit key to continue",
+      Note = "Get key in discord: https://discord.gg/xqbpKmSs",
+      FileName = "VampireKey",
+      SaveKey = true,
+      GrabKeyFromSite = false,
+      Key = {"Vampiretest"}
+   }
 })
