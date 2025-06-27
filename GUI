@@ -18,7 +18,7 @@ local Window = Rayfield:CreateWindow({
     KeySettings = {
         Title = "VampireHub - Key System",
         Subtitle = "Submit your key to unlock",
-        Note = "Get your key in our Discord:\nhttps://discord.gg/xqbpKmSs",
+        Note = "Get your key in our Discord:https://discord.gg/xqbpKmSs",
         FileName = "VampireKey",
         SaveKey = true,
         GrabKeyFromSite = false,
@@ -26,10 +26,15 @@ local Window = Rayfield:CreateWindow({
     }
 })
 
-local CombatTab = Window:CreateTab("Combat", 4483362458)
-local VisualTab = Window:CreateTab("Visual", 4483362458)
-local MovementTab = Window:CreateTab("Movement", 4483362458)
-local MiscTab = Window:CreateTab("Misc", 4483362458)
+local tabs = {
+    Combat = Window:CreateTab("Combat", 4483362458),
+    Visual = Window:CreateTab("Visual", 4483362458),
+    Movement = Window:CreateTab("Movement", 4483362458),
+    AI = Window:CreateTab("AI", 4483362458),
+    Auto = Window:CreateTab("Auto", 4483362458),
+    Mobile = Window:CreateTab("Mobile", 4483362458),
+    Misc = Window:CreateTab("Misc", 4483362458)
+}
 
 local function AddToggle(tab, name, key)
     tab:CreateToggle({
@@ -46,7 +51,7 @@ local function AddSlider(tab, name, key, min, max)
         Name = name,
         Range = {min, max},
         Increment = 1,
-        Suffix = "°",
+        Suffix = "",
         CurrentValue = getgenv().Vampire[key],
         Callback = function(v)
             getgenv().Vampire[key] = v
@@ -56,27 +61,38 @@ end
 
 for _, key in ipairs({
     "AutoParry", "SpamParry", "TriggerBot", "SlashDetect", "InfinityDetect",
-    "PhantomDetect", "AntiStun", "AutoAbility", "ReflectAI", "PanicParry",
-    "AutoQ", "SmartCooldown"
-}) do
-    AddToggle(CombatTab, key, key)
-end
+    "PhantomDetect", "AntiStun", "PanicParry", "ReflectAI", "AutoAbility"
+}) do AddToggle(tabs.Combat, key, key) end
 
-for _, key in ipairs({"ESP", "BallESP", "HighlightPlayers", "ShowPingFPS"}) do
-    AddToggle(VisualTab, key, key)
-end
-AddToggle(VisualTab, "CustomFOV", "CustomFOV")
-AddSlider(VisualTab, "FOV", "FOV", 30, 120)
+for _, key in ipairs({
+    "ESP", "BallESP", "HighlightPlayers", "ShowPingFPS", "CustomFOV"
+}) do AddToggle(tabs.Visual, key, key) end
+AddSlider(tabs.Visual, "FOV", "FOV", 30, 120)
 
-for _, key in ipairs({"Fly", "Spinbot", "Strafe", "CurveDetect"}) do
-    AddToggle(MovementTab, key, key)
-end
+for _, key in ipairs({
+    "Fly", "Spinbot", "Strafe", "CurveDetect"
+}) do AddToggle(tabs.Movement, key, key) end
 
-for _, key in ipairs({"FakeHeadless", "FakeKorblox"}) do
-    AddToggle(MiscTab, key, key)
-end
+for _, key in ipairs({
+    "AIReflect", "AIAnglePredict", "AIParry", "AIMovePredict", "AISkillChain"
+}) do AddToggle(tabs.AI, key, key) end
 
-MiscTab:CreateButton({
+for _, key in ipairs({
+    "AutoWin", "AutoClutch", "AutoCombo", "AutoReconnect",
+    "AutoRejoin", "SmartCooldown"
+}) do AddToggle(tabs.Auto, key, key) end
+
+for _, key in ipairs({
+    "MobileButtons", "MobileCompactUI", "ManualSpam"
+}) do AddToggle(tabs.Mobile, key, key) end
+
+for _, key in ipairs({
+    "FakeHeadless", "FakeKorblox", "GUI", "AntiBan", "Debug", "SaveStats"
+}) do AddToggle(tabs.Misc, key, key) end
+
+AddSlider(tabs.Misc, "ManualSpamSpeed", "ManualSpamSpeed", 1, 50)
+
+tabs.Misc:CreateButton({
     Name = "Save Config",
     Callback = function()
         local HttpService = game:GetService("HttpService")
