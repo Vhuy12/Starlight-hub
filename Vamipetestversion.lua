@@ -524,18 +524,18 @@ function Library:create_ui()
         Debris:AddItem(old_Riser, 0)
     end
 
-    local Vampire = Instance.new('ScreenGui')
-    Vampire.ResetOnSpawn = false
-    Vampire.Name = 'Vampire'
+    local Riser = Instance.new('ScreenGui')
+    Riser.ResetOnSpawn = false
+    Riser.Name = 'Riser'
     Riser.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    Vampire.Parent = CoreGui
+    Riser.Parent = CoreGui
     
     local Container = Instance.new('Frame')
 Container.ClipsDescendants = true
 Container.BorderColor3 = Color3.fromRGB(80, 80, 80) -- cinza escuro neutro
 Container.AnchorPoint = Vector2.new(0.5, 0.5)
 Container.Name = 'Container'
-Container.BackgroundTransparency = 0.2 -- transparĂªncia leve
+Container.BackgroundTransparency = 0.2 -- transparência leve
 Container.BackgroundColor3 = Color3.fromRGB(30, 30, 30) -- base escura para o gradiente
 Container.Position = UDim2.new(0.5, 0, 0.5, 0)
 Container.Size = UDim2.new(0, 0, 0, 0)
@@ -586,8 +586,8 @@ local ClientName = Instance.new('TextLabel')
 ClientName.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
 ClientName.TextColor3 = Color3.fromRGB(240, 240, 240) -- branco suave
 ClientName.TextTransparency = 0.05
-ClientName.Text = 'Vampire'
-ClientName.Name = 'Vampire'
+ClientName.Text = 'River'
+ClientName.Name = 'River'
 ClientName.Size = UDim2.new(0, 31, 0, 13)
 ClientName.AnchorPoint = Vector2.new(0, 0.5)
 ClientName.Position = UDim2.new(0.056, 0, 0.055, 0)
@@ -617,7 +617,7 @@ Pin.Position = UDim2.new(0.026, 0, 0.136, 0)
 Pin.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Pin.Size = UDim2.new(0, 2, 0, 16)
 Pin.BorderSizePixel = 0
-Pin.BackgroundColor3 = Color3.fromRGB(190, 150, 255) -- lilĂ¡s suave
+Pin.BackgroundColor3 = Color3.fromRGB(190, 150, 255) -- lilás suave
 Pin.Parent = Handler
 
 local UICorner = Instance.new('UICorner')
@@ -635,7 +635,7 @@ Icon.Position = UDim2.new(0.025, 0, 0.055, 0)
 Icon.Name = 'Icon'
 Icon.Size = UDim2.new(0, 18, 0, 18)
 Icon.BorderSizePixel = 0
-Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- deixa como estĂ¡, mas invisĂ­vel com `BackgroundTransparency = 1`
+Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- deixa como está, mas invisível com `BackgroundTransparency = 1`
 Icon.Parent = Handler
 
 local Divider = Instance.new('Frame')
@@ -664,7 +664,7 @@ Minimize.Position = UDim2.new(0.020, 0, 0.029, 0)
 Minimize.Size = UDim2.new(0, 24, 0, 24)
 Minimize.BorderSizePixel = 0
 Minimize.TextSize = 14
-Minimize.BackgroundColor3 = Color3.fromRGB(220, 200, 255) -- fundo invisĂ­vel, mas coerente
+Minimize.BackgroundColor3 = Color3.fromRGB(220, 200, 255) -- fundo invisível, mas coerente
 Minimize.Parent = Handler
 
 local UIScale = Instance.new('UIScale')
@@ -1049,7 +1049,7 @@ ModuleName.Position = UDim2.new(0.073, 0, 0.24, 0)
 ModuleName.TextXAlignment = Enum.TextXAlignment.Left
 ModuleName.TextSize = 13
 ModuleName.TextTransparency = 0.05
-ModuleName.TextColor3 = Color3.fromRGB(220, 200, 255) -- lilĂ¡s suave
+ModuleName.TextColor3 = Color3.fromRGB(220, 200, 255) -- lilás suave
 ModuleName.BackgroundTransparency = 1
 ModuleName.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold)
 ModuleName.Text = settings.rich and settings.richtext or (settings.title or "Skibidi")
@@ -1066,7 +1066,7 @@ Description.TextTransparency = 0.45
 Description.TextColor3 = Color3.fromRGB(180, 160, 230)
 Description.BackgroundTransparency = 1
 Description.FontFace = ModuleName.FontFace
-Description.Text = settings.description or "DescriĂ§Ă£o aqui"
+Description.Text = settings.description or "Descrição aqui"
 Description.Parent = Header
 
 local Toggle = Instance.new('Frame')
@@ -3394,7 +3394,7 @@ if Distance < Ball_Distance_Threshold then
     return false
 end
 
-local adjustedReachTime = Reach_Time + 0.03 -- compensaĂ§Ă£o real de ping
+local adjustedReachTime = Reach_Time + 0.03 -- compensação real de ping
 
 if Speed < 300 then
     if (tick() - Curving) < (adjustedReachTime / 1.2) then return true end
@@ -3406,7 +3406,7 @@ else
     if (tick() - Curving) < (adjustedReachTime / 1.5) then return true end
 end
 
--- đŸ§  CorreĂ§Ă£o por Ă¢ngulo invertido (dot reverso)
+-- 🧠 Correção por ângulo invertido (dot reverso)
 local Dot_Threshold = (0 - Ping / 1000)
 local Direction_Difference = (Ball_Direction - Velocity.Unit)
 local Direction_Similarity = Direction:Dot(Direction_Difference.Unit)
@@ -3416,7 +3416,7 @@ if Dot_Difference < Dot_Threshold then
     return true
 end
 
--- đŸ¯ DetecĂ§Ă£o angular (curva real)
+-- 🎯 Detecção angular (curva real)
 local Clamped_Dot = math.clamp(Dot, -1, 1)
 local Radians = math.deg(math.asin(Clamped_Dot))
 Lerp_Radians = Auto_Parry.Linear_Interpolation(Lerp_Radians, Radians, 0.8)
@@ -3437,7 +3437,7 @@ else
     end
 end
 
--- đŸ§ª VerificaĂ§Ă£o de intenĂ§Ă£o (histĂ³rico de curva anterior)
+-- 🧪 Verificação de intenção (histórico de curva anterior)
 if #Previous_Velocity == 4 then
     for i = 1, 2 do
         local prevDir = (Ball_Direction - Previous_Velocity[i].Unit).Unit
@@ -3448,7 +3448,7 @@ if #Previous_Velocity == 4 then
     end
 end
 
--- đŸ¨ DetecĂ§Ă£o de curva pra trĂ¡s real
+-- 🚨 Detecção de curva pra trás real
 local backwardsCurveDetected = false
 local backwardsAngleThreshold = 60
 local horizDirection = Vector3.new(playerPos.X - ballPos.X, 0, playerPos.Z - ballPos.Z)
@@ -3524,7 +3524,7 @@ _G.In_Close_Contact = _G.In_Close_Contact or false
 
 local now = tick()
 
--- đŸ¯ DetecĂ§Ă£o de contato prĂ³ximo
+-- 🎯 Detecção de contato próximo
 if Target_Distance <= 3 then
     _G.In_Close_Contact = true
 end
@@ -3534,7 +3534,7 @@ if _G.In_Close_Contact and Target_Distance > 3.3 then
     _G.Last_Close_Contact = now
 end
 
--- â ï¸ Mais rigoroso quando estĂ¡ fugindo ou nĂ£o em combate
+-- ⚠️ Mais rigoroso quando está fugindo ou não em combate
 local can_use_div10 = (not _G.In_Close_Contact) and ((now - _G.Last_Close_Contact) >= 1.5)
 
 if can_use_div10 and MoveDir.Magnitude > 0.2 and MoveDir:Dot(TargetDir) < -0.4 then
@@ -3545,7 +3545,7 @@ if can_use_div10 and TargetMoveDir.Magnitude > 0.2 and TargetMoveDir:Dot(-Target
     Movement_Factor = 10
 end
 
--- đŸ“ Limite de ativaĂ§Ă£o baseado em ping e distĂ¢ncia
+-- 📏 Limite de ativação baseado em ping e distância
 local Maximum_Spam_Distance = self.Ping * 0.7 + math.min(Speed / (Movement_Factor * 1.2), 80)
 
 if self.Entity_Properties.Distance > Maximum_Spam_Distance then
@@ -3560,7 +3560,7 @@ if Target_Distance > Maximum_Spam_Distance then
     return Spam_Accuracy
 end
 
--- đŸ§  Controle mais preciso do Dot para evitar ativaĂ§Ă£o precoce
+-- 🧠 Controle mais preciso do Dot para evitar ativação precoce
 local Dot_Reduction = math.clamp(-Dot, 0, 1) -- transforma em positivo
 local Dot_Impact = math.clamp(Dot_Reduction * (Speed / 40), 0, 4)
 
@@ -4199,7 +4199,7 @@ local Ping_Threshold = math.clamp(Ping / 10, 1, 16)
                     if Distance <= Spam_Accuracy and Parries > threshold then
                         if getgenv().SpamParryKeypress then
                         if Distance > Spam_Accuracy or Target_Distance > Spam_Accuracy then
-    return -- cancela se jĂƒÂ¡ tĂƒÂ¡ longe, evita falso spam
+    return -- cancela se jÃ¡ tÃ¡ longe, evita falso spam
 end
                             VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F, false, game) 
                         else
@@ -4315,7 +4315,7 @@ local Ping_Threshold = math.clamp(Ping / 10, 1, 16)
     
                         if Distance <= Spam_Accuracy and Parries > threshold then
 if Distance > Spam_Accuracy or Target_Distance > Spam_Accuracy then
-    return -- cancela se jĂƒÂ¡ tĂƒÂ¡ longe, evita falso spam
+    return -- cancela se jÃ¡ tÃ¡ longe, evita falso spam
 end
 if tick() - (Last_Parry or 0) < 0.1 then return end
 Last_Parry = tick()
@@ -4425,14 +4425,14 @@ if value then
 
     local uiStroke = Instance.new("UIStroke")
     uiStroke.Thickness = 2
-    uiStroke.Color = Color3.fromRGB(190, 150, 255) -- borda lilĂ¡s suave
-    uiStroke.Transparency = 0.2 -- leve transparĂªncia na borda tambĂ©m
+    uiStroke.Color = Color3.fromRGB(190, 150, 255) -- borda lilás suave
+    uiStroke.Transparency = 0.2 -- leve transparência na borda também
     uiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     uiStroke.Parent = frame
 
     local uiGradient = Instance.new("UIGradient")
     uiGradient.Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(90, 60, 180)),  -- roxo mĂ©dio
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(90, 60, 180)),  -- roxo médio
         ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 10, 25))    -- quase preto
     }
     uiGradient.Rotation = 0
@@ -4446,7 +4446,7 @@ if value then
     button.BackgroundTransparency = 1
     button.BorderSizePixel = 0
     button.Font = Enum.Font.GothamSemibold
-    button.TextColor3 = Color3.fromRGB(235, 215, 255) -- lilĂ¡s claro com Ă³timo contraste
+    button.TextColor3 = Color3.fromRGB(235, 215, 255) -- lilás claro com ótimo contraste
     button.TextSize = 22
     button.Parent = frame
 
@@ -4532,7 +4532,7 @@ local Module = rage:create_module({
             AutoClickParried = true
             JustTriggered = true
             parryLock = true
-            task.delay(0.2, function() parryLock = false end) -- impede mĂºltiplos parrys em Ă¡rea
+            task.delay(0.2, function() parryLock = false end) -- impede múltiplos parrys em área
         end
 
         local function resetState()
@@ -4570,7 +4570,7 @@ local Module = rage:create_module({
             local myVelocity = myRoot.Velocity.Unit
 
             local dot = toTarget:Dot(myVelocity)
-            return dot < -0.4 -- se estiver correndo na direĂ§Ă£o oposta
+            return dot < -0.4 -- se estiver correndo na direção oposta
         end
 
         Workspace.Balls.ChildAdded:Connect(function()
@@ -4624,7 +4624,7 @@ local Module = rage:create_module({
                 if target == Player.Name then
                     table.insert(inRangeTargets, Ball)
 
-                    -- â ï¸ Se estiver correndo do lastHit, cancela
+                    -- ⚠️ Se estiver correndo do lastHit, cancela
                     if isRunningFrom(lastHit) then
                         resetState()
                         return
@@ -4650,13 +4650,13 @@ local Module = rage:create_module({
                         BlockedSpawnedShot = true
                         BallJustSpawned = false
                         detected = true
-                        break -- đŸ’¥ Garante que sĂ³ 1 bola seja parriada por vez
+                        break -- 💥 Garante que só 1 bola seja parriada por vez
                     end
                 end
             end
 
             if #inRangeTargets > 1 then
-                parryLock = true -- Evita spam de parrys em mĂºltiplos players
+                parryLock = true -- Evita spam de parrys em múltiplos players
                 task.delay(0.3, function() parryLock = false end)
             end
 
@@ -4846,7 +4846,7 @@ local SetCurveModule = rage:create_module({
             button.Parent = frame
 
             button.MouseButton1Click:Connect(function()
-                -- botĂ£o funciona sempre, mesmo com HotkeyParryType desativado
+                -- botão funciona sempre, mesmo com HotkeyParryType desativado
                 currentIndex += 1
                 if currentIndex > #parryTypeList then currentIndex = 1 end
 
@@ -6239,7 +6239,7 @@ BallTrail:create_checkbox({
 	end
 })
 
--- đŸŒˆ Monitoramento
+-- 🌈 Monitoramento
 local hue = 0
 local trackedBalls = {}
 
@@ -6260,7 +6260,7 @@ local function clearEffects(ball)
 end
 
 local function applyEffects(ball)
-	-- â›”ï¸ Se nĂ£o ativado, limpa
+	-- ⛔️ Se não ativado, limpa
 	if not getgenv().BallTrailEnabled then
 		if trackedBalls[ball] then
 			clearEffects(ball)
@@ -6269,7 +6269,7 @@ local function applyEffects(ball)
 		return
 	end
 
-	-- âœ… Se jĂ¡ foi aplicado, sĂ³ atualiza cor se necessĂ¡rio
+	-- ✅ Se já foi aplicado, só atualiza cor se necessário
 	if trackedBalls[ball] then
 		local trail = ball:FindFirstChild("Trail")
 		if trail then
@@ -6284,10 +6284,10 @@ local function applyEffects(ball)
 		return
 	end
 
-	-- đŸ§ª Marca como feito
+	-- 🧪 Marca como feito
 	trackedBalls[ball] = true
 
-	-- âœ… Criar Trail
+	-- ✅ Criar Trail
 	local trail = Instance.new("Trail")
 	trail.Name = "Trail"
 
@@ -6312,7 +6312,7 @@ local function applyEffects(ball)
 	trail.Color = ColorSequence.new(getgenv().BallTrailColor or Color3.new(1, 1, 1))
 	trail.Parent = ball
 
-	-- âœ¨ Particle
+	-- ✨ Particle
 	if getgenv().BallTrailParticleEnabled then
 		local emitter = Instance.new("ParticleEmitter")
 		emitter.Name = "ParticleEmitter"
@@ -6330,7 +6330,7 @@ local function applyEffects(ball)
 		emitter.Parent = ball
 	end
 
-	-- đŸ’¡ Glow
+	-- 💡 Glow
 	if getgenv().BallTrailGlowEnabled then
 		local glow = Instance.new("PointLight")
 		glow.Name = "BallGlow"
@@ -6340,7 +6340,7 @@ local function applyEffects(ball)
 	end
 end
 
--- â™»ï¸ Atualizador contĂ­nuo
+-- ♻️ Atualizador contínuo
 game:GetService("RunService").Heartbeat:Connect(function()
 	hue = (hue + 1) % 360
 
@@ -6368,7 +6368,7 @@ function qolPlayerNameVisibility()
 
 		local head = character:WaitForChild("Head")
 
-		-- đŸ§  Criar o Billboard fixo
+		-- 🧠 Criar o Billboard fixo
 		local billboardGui = Instance.new("BillboardGui")
 		billboardGui.Name = "AbilityBillboard"
 		billboardGui.Adornee = head
@@ -6725,12 +6725,12 @@ qolPlayerNameVisibility()
     SkinChanger:change_state(false)
 
     SkinChanger:create_paragraph({
-        title = "Ă¢Å¡ Ă¯Â¸ÂEVERYONE CAN SEE ANIMATIONS",
+        title = "âš ï¸EVERYONE CAN SEE ANIMATIONS",
         text = "IF YOU USE SKIN CHANGER BACKSWORD YOU MUST EQUIP AN ACTUAL BACKSWORD"
     })
 
     local skinchangertextbox = SkinChanger:create_textbox({
-        title = "Ă¯Â¿Â¬ Skin Name (Case Sensitive) Ă¯Â¿Â¬",
+        title = "ï¿¬ Skin Name (Case Sensitive) ï¿¬",
         placeholder = "Enter Sword Skin Name... ",
         flag = "SkinChangerTextbox",
         callback = function(text)
@@ -7433,20 +7433,20 @@ local BallStats = misc:create_module({
                 ballStatsUI = Instance.new("ScreenGui")
                 ballStatsUI.Name = "BallStatsUI"
                 ballStatsUI.ResetOnSpawn = false
-                ballStatsUI.DisplayOrder = 9999 -- đŸ§  prioridade mĂ¡xima
-                ballStatsUI.ZIndexBehavior = Enum.ZIndexBehavior.Global -- đŸ”¼ permite sobreposiĂ§Ă£o visual
-                ballStatsUI.Parent = player:WaitForChild("PlayerGui") -- âœ… continua no PlayerGui
+                ballStatsUI.DisplayOrder = 9999 -- 🧠 prioridade máxima
+                ballStatsUI.ZIndexBehavior = Enum.ZIndexBehavior.Global -- 🔼 permite sobreposição visual
+                ballStatsUI.Parent = player:WaitForChild("PlayerGui") -- ✅ continua no PlayerGui
 
                 local textLabel = Instance.new("TextLabel")
                 textLabel.Name = "SpeedDisplay"
                 textLabel.Size = UDim2.new(0, 180, 0, 24)
-                textLabel.Position = UDim2.new(0, 10, 0, 10) -- â ï¸ EXATO MESMO LUGAR
+                textLabel.Position = UDim2.new(0, 10, 0, 10) -- ⚠️ EXATO MESMO LUGAR
                 textLabel.BackgroundTransparency = 1
                 textLabel.TextColor3 = Color3.new(1, 1, 1)
                 textLabel.Font = Enum.Font.Gotham
-                textLabel.TextSize = 15 -- sĂ³ um pouco maior
+                textLabel.TextSize = 15 -- só um pouco maior
                 textLabel.Text = "0.0"
-                textLabel.ZIndex = 9999 -- đŸ§  por cima de tudo
+                textLabel.ZIndex = 9999 -- 🧠 por cima de tudo
                 textLabel.Parent = ballStatsUI
 
                 updateConn = game:GetService("RunService").RenderStepped:Connect(function()
