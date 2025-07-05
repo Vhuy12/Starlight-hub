@@ -524,11 +524,11 @@ function Library:create_ui()
         Debris:AddItem(old_Riser, 0)
     end
 
-    local Riser = Instance.new('ScreenGui')
-    Riser.ResetOnSpawn = false
-    Riser.Name = 'Riser'
+    local Vampire = Instance.new('ScreenGui')
+    Vampire.ResetOnSpawn = false
+    Vampire.Name = 'Vampire'
     Riser.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    Riser.Parent = CoreGui
+    Vampire.Parent = CoreGui
     
     local Container = Instance.new('Frame')
 Container.ClipsDescendants = true
