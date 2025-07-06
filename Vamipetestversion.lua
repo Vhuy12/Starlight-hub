@@ -54,8 +54,8 @@ if old_Riser then
     Debris:AddItem(old_Riser, 0)
 end
 
-if not isfolder("Riser") then
-    makefolder("Riser")
+if not isfolder("Vampire") then
+    makefolder("Vampire")
 end
 
 
