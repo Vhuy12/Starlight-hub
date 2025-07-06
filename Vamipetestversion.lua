@@ -584,8 +584,8 @@ local ClientName = Instance.new('TextLabel')
 ClientName.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
 ClientName.TextColor3 = Color3.fromRGB(240, 240, 240) -- branco suave
 ClientName.TextTransparency = 0.05
-ClientName.Text = 'Vampire Private'
-ClientName.Name = 'Vampire Private'
+ClientName.Text = 'Vampire Paid'
+ClientName.Name = 'Vampire Paid'
 ClientName.Size = UDim2.new(0, 31, 0, 13)
 ClientName.AnchorPoint = Vector2.new(0, 0.5)
 ClientName.Position = UDim2.new(0.056, 0, 0.055, 0)
@@ -4133,86 +4133,86 @@ do
             end
 
             if value then
-                Connections_Manager['Auto Spam'] = RunService.PreSimulation:Connect(function()
-                    local Ball = Auto_Parry.Get_Ball()
+                Connections_Manager['Auto Spam'] = RunService.Heartbeat:Connect(function()
+    local now = tick()
+    if not lastAutoSpam then lastAutoSpam = 0 end
+    if now - lastAutoSpam < 0.0167 then return end
+    lastAutoSpam = now
+                local Ball = Auto_Parry.Get_Ball()
 
-                    if not Ball then
-                        return
-                    end
-
-                    local Zoomies = Ball:FindFirstChild('zoomies')
-
-                    if not Zoomies then
-                        return
-                    end
-
-                    Auto_Parry.Closest_Player()
-
-                    local Ping = game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue()
-
-local Ping_Threshold = math.clamp(Ping / 10, 1, 16)
-
-                    local Ball_Target = Ball:GetAttribute('target')
-
-                    local Ball_Properties = Auto_Parry:Get_Ball_Properties()
-                    local Entity_Properties = Auto_Parry:Get_Entity_Properties()
-
-                    local Spam_Accuracy = Auto_Parry.Spam_Service({
-                        Ball_Properties = Ball_Properties,
-                        Entity_Properties = Entity_Properties,
-                        Ping = Ping_Threshold
-                    })
-
-                    local Target_Position = Closest_Entity.PrimaryPart.Position
-                    local Target_Distance = Player:DistanceFromCharacter(Target_Position)
-
-                    local Direction = (Player.Character.PrimaryPart.Position - Ball.Position).Unit
-                    local Ball_Direction = Zoomies.VectorVelocity.Unit
-
-                    local Dot = Direction:Dot(Ball_Direction)
-                   
-
-                    local Distance = Player:DistanceFromCharacter(Ball.Position)
-
-                    if not Ball_Target then
-                        return
-                    end
-
-                    if Target_Distance > Spam_Accuracy or Distance > Spam_Accuracy then
-                        return
-                    end
-                    
-                    local Pulsed = Player.Character:GetAttribute('Pulsed')
-
-                    if Pulsed then
-                        return
-                    end
-
-                    if Ball_Target == tostring(Player) and Target_Distance > 30 and Distance > 30 then
-                        return
-                    end
-
-                    local threshold = ParryThreshold
-
-                    if Distance <= Spam_Accuracy and Parries > threshold then
-                        if getgenv().SpamParryKeypress then
-                        if Distance > Spam_Accuracy or Target_Distance > Spam_Accuracy then
-    return -- cancela se jÃ¡ tÃ¡ longe, evita falso spam
-end
-                            VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F, false, game) 
-                        else
-                            Auto_Parry.Parry(Selected_Parry_Type)
-                        end
-                    end
-                end)
-            else
-                if Connections_Manager['Auto Spam'] then
-                    Connections_Manager['Auto Spam']:Disconnect()
-                    Connections_Manager['Auto Spam'] = nil
+                if not Ball then
+                    return
                 end
+
+                local Zoomies = Ball:FindFirstChild('zoomies')
+
+                if not Zoomies then
+                    return
+                end
+
+                Auto_Parry.Closest_Player()
+
+                local Ping = game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue()
+
+                local Ping_Threshold = math.clamp(Ping / 10, 1, 16)
+
+                local Ball_Target = Ball:GetAttribute('target')
+
+                local Ball_Properties = Auto_Parry:Get_Ball_Properties()
+                local Entity_Properties = Auto_Parry:Get_Entity_Properties()
+
+                local Spam_Accuracy = Auto_Parry.Spam_Service({
+                    Ball_Properties = Ball_Properties,
+                    Entity_Properties = Entity_Properties,
+                    Ping = Ping_Threshold
+                })
+
+                local Target_Position = Closest_Entity.PrimaryPart.Position
+                local Target_Distance = Player:DistanceFromCharacter(Target_Position)
+
+                local Direction = (Player.Character.PrimaryPart.Position - Ball.Position).Unit
+                local Ball_Direction = Zoomies.VectorVelocity.Unit
+
+                local Dot = Direction:Dot(Ball_Direction)
+
+                local Distance = Player:DistanceFromCharacter(Ball.Position)
+
+                if not Ball_Target then
+                    return
+                end
+
+                if Target_Distance > Spam_Accuracy or Distance > Spam_Accuracy then
+                    return
+                end
+                
+                local Pulsed = Player.Character:GetAttribute('Pulsed')
+
+                if Pulsed then
+                    return
+                end
+
+                if Ball_Target == tostring(Player) and Target_Distance > 30 and Distance > 30 then
+                    return
+                end
+
+                local threshold = ParryThreshold
+
+                if Distance <= Spam_Accuracy and Parries > threshold then
+                    if getgenv().SpamParryKeypress then
+                        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F, false, game) 
+                    else
+                        Auto_Parry.Parry(Selected_Parry_Type)
+                    end
+                end
+            end)
+        else
+            if Connections_Manager['Auto Spam'] then
+                Connections_Manager['Auto Spam']:Disconnect()
+                Connections_Manager['Auto Spam'] = nil
             end
         end
-    })
+    end
+})
 
     local dropdown2 = SpamParry:create_dropdown({
         title = 'Parry Type',
@@ -4370,26 +4370,31 @@ Last_Parry = tick()
                 end
             end
             if value then
-                Connections_Manager['Manual Spam'] = RunService.PreSimulation:Connect(function()
-                    if getgenv().spamui then
-                        return
-                    end
-
-                    if getgenv().ManualSpamKeypress then
-                        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F, false, game) 
-                    else
-                        Auto_Parry.Parry(Selected_Parry_Type)
-                    end
-
-                end)
-            else
-                if Connections_Manager['Manual Spam'] then
-                    Connections_Manager['Manual Spam']:Disconnect()
-                    Connections_Manager['Manual Spam'] = nil
+                Connections_Manager['Manual Spam'] = RunService.Heartbeat:Connect(function()
+    local now = tick()
+    if not lastManualSpam then lastManualSpam = 0 end
+    if now - lastManualSpam < 0.0167 then return end
+    lastManualSpam = now
+                if getgenv().spamui then
+                    return
                 end
+
+                if getgenv().ManualSpamKeypress then
+                    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F, false, game) 
+                else
+                    Auto_Parry.Parry(Selected_Parry_Type)
+                end
+
+            end)
+        else
+            if Connections_Manager['Manual Spam'] then
+                Connections_Manager['Manual Spam']:Disconnect()
+                Connections_Manager['Manual Spam'] = nil
             end
         end
-    })
+    end
+})
+							
     
     ManualSpam:change_state(false)
 
