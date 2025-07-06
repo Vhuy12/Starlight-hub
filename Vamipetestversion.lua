@@ -48,10 +48,10 @@ local CoreGui = cloneref(game:GetService('CoreGui'))
 local Debris = cloneref(game:GetService('Debris'))
 
 local mouse = Players.LocalPlayer:GetMouse()
-local old_Riser = CoreGui:FindFirstChild('Riser')
+local old_Vampire = CoreGui:FindFirstChild('Vampire')
 
-if old_Riser then
-    Debris:AddItem(old_Riser, 0)
+if old_Vampire then
+    Debris:AddItem(old_Vampire, 0)
 end
 
 if not isfolder("Vampire") then
@@ -284,7 +284,7 @@ local Config = setmetatable({
     save = function(self: any, file_name: any, config: any)
         local success_save, result = pcall(function()
             local flags = HttpService:JSONEncode(config)
-            writefile('Riser/'..file_name..'.json', flags)
+            writefile('Vampire/'..file_name..'.json', flags)
         end)
     
         if not success_save then
@@ -293,13 +293,13 @@ local Config = setmetatable({
     end,
     load = function(self: any, file_name: any, config: any)
         local success_load, result = pcall(function()
-            if not isfile('Riser/'..file_name..'.json') then
+            if not isfile('Vampire/'..file_name..'.json') then
                 self:save(file_name, config)
         
                 return
             end
         
-            local flags = readfile('Riser/'..file_name..'.json')
+            local flags = readfile('Vampire/'..file_name..'.json')
         
             if not flags then
                 self:save(file_name, config)
@@ -516,17 +516,17 @@ end
 
 
 function Library:create_ui()
-    local old_Riser = CoreGui:FindFirstChild('Riser')
+    local old_Vampire = CoreGui:FindFirstChild('Vampire')
 
     if old_Riser then
-        Debris:AddItem(old_Riser, 0)
+        Debris:AddItem(old_Vampire, 0)
     end
 
-    local Riser = Instance.new('ScreenGui')
-    Riser.ResetOnSpawn = false
-    Riser.Name = 'Riser'
-    Riser.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    Riser.Parent = CoreGui
+    local Vampire = Instance.new('ScreenGui')
+    Vampire.ResetOnSpawn = false
+    Vampire.Name = 'Vampire'
+    Vampire.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    Vampire.Parent = CoreGui
     
     local Container = Instance.new('Frame')
 Container.ClipsDescendants = true
@@ -534,12 +534,12 @@ Container.BorderColor3 = Color3.fromRGB(80, 80, 80) -- cinza escuro neutro
 Container.AnchorPoint = Vector2.new(0.5, 0.5)
 Container.Name = 'Container'
 Container.BackgroundTransparency = 0.2 -- transparência leve
-Container.BackgroundColor3 = Color3.fromRGB(30, 30, 30) -- base escura para o gradiente
+Container.BackgroundColor3 = Color3.fromRGB(155, 250, 188) -- base escura para o gradiente
 Container.Position = UDim2.new(0.5, 0, 0.5, 0)
 Container.Size = UDim2.new(0, 0, 0, 0)
 Container.Active = true
 Container.BorderSizePixel = 0
-Container.Parent = Riser
+Container.Parent = Vampire
 
 local UICorner = Instance.new('UICorner')
 UICorner.CornerRadius = UDim.new(0, 10)
@@ -584,8 +584,8 @@ local ClientName = Instance.new('TextLabel')
 ClientName.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
 ClientName.TextColor3 = Color3.fromRGB(240, 240, 240) -- branco suave
 ClientName.TextTransparency = 0.05
-ClientName.Text = 'Vampire Paid'
-ClientName.Name = 'Vampire Paid'
+ClientName.Text = 'Vampire free'
+ClientName.Name = 'Vampire free'
 ClientName.Size = UDim2.new(0, 31, 0, 13)
 ClientName.AnchorPoint = Vector2.new(0, 0.5)
 ClientName.Position = UDim2.new(0.056, 0, 0.055, 0)
@@ -725,7 +725,7 @@ UIScale.Parent = Container
     end;
 
     function self:UIVisiblity()
-        Riser.Enabled = not Riser.Enabled;
+        Vampire.Enabled = not Vampire.Enabled;
     end;
 
     function self:change_visiblity(state: boolean)
@@ -1002,7 +1002,7 @@ Module.Name = 'Module'
 Module.Size = UDim2.new(0, 241, 0, 93)
 Module.Position = UDim2.new(0.0041, 0, 0, 0)
 Module.BackgroundTransparency = 0.15
-Module.BackgroundColor3 = Color3.fromRGB(30, 22, 50) -- roxo escuro elegante
+Module.BackgroundColor3 = Color3.fromRGB(135, 206, 250)
 Module.BorderSizePixel = 0
 Module.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Module.Parent = settings.section
@@ -1085,7 +1085,7 @@ Circle.Name = 'Circle'
 Circle.Size = UDim2.new(0, 12, 0, 12)
 Circle.Position = UDim2.new(0, 0, 0.5, 0)
 Circle.AnchorPoint = Vector2.new(0, 0.5)
-Circle.BackgroundColor3 = Color3.fromRGB(150, 130, 220)
+Circle.BackgroundColor3 = Color3.fromRGB(25, 25, 112)
 Circle.BackgroundTransparency = 0.1
 Circle.BorderSizePixel = 0
 Circle.Parent = Toggle
@@ -7757,9 +7757,9 @@ workspace.Balls.ChildRemoved:Connect(function(Value)
     if Connections_Manager['Target Change'] then
         Connections_Manager['Target Change']:Disconnect()
         Connections_Manager['Target Change'] = nil
-    end
+        end
 end)
 
-
-
-main:load()  
+						
+						
+main:load()
